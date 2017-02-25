@@ -168,6 +168,7 @@ export default combineReducers( {
  * @return {Function}        Action thunk
  */
 export function requestPosts( post_type, query = {} ) {
+
 	return ( dispatch ) => {
 		dispatch( {
 			type: POSTS_REQUEST,
@@ -177,11 +178,13 @@ export function requestPosts( post_type, query = {} ) {
 		query._embed = true;
 
 		api.get( '/wp/v2/' + post_type, query ).then( posts => {
+
 			dispatch( {
 				type: POSTS_RECEIVE,
 				posts
 			} );
 			requestPageCount( '/wp/v2/' + post_type, query ).then( count => {
+
 				dispatch( {
 					type: POSTS_REQUEST_SUCCESS,
 					query,
@@ -219,6 +222,7 @@ export function requestPost( postSlug ) {
 		};
 
 		api.get( '/wp/v2/' + post_type, query ).then( data => {
+
 			const post = data[0];
 			dispatch( {
 				type: POSTS_RECEIVE,
