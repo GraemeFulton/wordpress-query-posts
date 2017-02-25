@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "_args": [
     [
       {
@@ -54,22 +53,6 @@
     "wordpress-rest-api-oauth-1": "^1.0.8"
   },
   "description": "A component for fetching WordPress post data from the REST API.",
-=======
-  "name": "wordpress-query-posts",
-  "version": "1.1.2",
-  "description": "A component for fetching WordPress post data from the REST API.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ryelle/wordpress-query-posts"
-  },
-  "keywords": [
-    "react",
-    "react-component",
-    "wordpress",
-    "wpapi"
-  ],
-  "license": "GPL-2.0+",
->>>>>>> 7931f64868d430e4610c56d75a86089aa882184c
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-eslint": "^7.0.0",
@@ -87,7 +70,6 @@
     "eslint-plugin-react": "^6.4.1",
     "sinon": "^1.17.6"
   },
-<<<<<<< HEAD
   "engines": {
     "node": ">=0.10"
   },
@@ -121,32 +103,4 @@
     "watch": "babel src --out-dir lib --watch"
   },
   "version": "1.1.2"
-=======
-  "dependencies": {
-    "debug": "^2.2.0",
-    "lodash": "^4.16.6",
-    "qs": "^6.3.0",
-    "react": "^15.3.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.6.0",
-    "shallowequal": "^0.2.2",
-    "wordpress-rest-api-oauth-1": "^1.0.8"
-  },
-  "engines": {
-    "node": ">=0.10"
-  },
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
-  "scripts": {
-    "build": "babel src --out-dir lib",
-    "watch": "babel src --out-dir lib --watch",
-    "lint": "eslint js --ext=js,jsx",
-    "test": "mocha  --require ./mocha-setup",
-    "preversion": "npm test",
-    "version": "npm run build && git add -A lib",
-    "postversion": "git push && git push --tags"
-  }
->>>>>>> 7931f64868d430e4610c56d75a86089aa882184c
 }

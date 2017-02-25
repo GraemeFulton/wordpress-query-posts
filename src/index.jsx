@@ -22,7 +22,8 @@ class QueryPosts extends Component {
 
 	componentWillReceiveProps( nextProps ) {
 		if ( this.props.postSlug === nextProps.postSlug &&
-				shallowEqual( this.props.query, nextProps.query ) ) {
+				shallowEqual( this.props.query, nextProps.query ) &&
+				this.props.postType === nextProps.postType  ) {
 			return;
 		}
 
@@ -33,13 +34,13 @@ class QueryPosts extends Component {
 		const single = !! props.postSlug;
 
 		if ( ! single && ! props.requestingPosts ) {
-			debug( `Request post list using query ${ props.query }` );
-			props.requestPosts( props.query );
+			debug( `Request post list using query ${ props.query } for post type ${ props.postType }` );
+			props.requestPosts( props.postType, props.query );
 		}
 
 		if ( single && ! props.requestingPost ) {
 			debug( `Request single post ${ props.postSlug }` );
-			props.requestPost( props.postSlug );
+			props.requestPost( props.postType, props.postSlug );
 		}
 	}
 
@@ -52,7 +53,8 @@ QueryPosts.propTypes = {
 	postSlug: PropTypes.string,
 	query: PropTypes.object,
 	requestingPosts: PropTypes.bool,
-	requestPosts: PropTypes.func
+	requestPosts: PropTypes.func,
+	postType:PropTypes.string
 };
 
 QueryPosts.defaultProps = {
@@ -61,10 +63,10 @@ QueryPosts.defaultProps = {
 
 export default connect(
 	( state, ownProps ) => {
-		const { postSlug, query } = ownProps;
+		const { postSlug, query , postType} = ownProps;
 		return {
 			requestingPost: isRequestingPost( state, postSlug ),
-			requestingPosts: isRequestingPostsForQuery( state, query )
+			requestingPosts: isRequestingPostsForQuery( state, query, postType )
 		};
 	},
 	( dispatch ) => {
