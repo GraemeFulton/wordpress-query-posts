@@ -1,0 +1,106 @@
+{
+  "_args": [
+    [
+      {
+        "name": null,
+        "raw": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+        "rawSpec": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+        "scope": null,
+        "spec": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+        "type": "remote"
+      },
+      "/Users/graeme/Documents/workspace/react-slingshot"
+    ]
+  ],
+  "_from": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+  "_id": "wordpress-query-posts@1.1.2",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/wordpress-query-posts",
+  "_phantomChildren": {
+    "hoist-non-react-statics": "1.2.0",
+    "invariant": "2.2.2",
+    "lodash": "4.17.4",
+    "loose-envify": "1.3.1"
+  },
+  "_requested": {
+    "name": null,
+    "raw": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+    "rawSpec": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+    "scope": null,
+    "spec": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+    "type": "remote"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+  "_shasum": "2e78db8d8d8718f6a9ec9c0a4259c0d06a411d6e",
+  "_shrinkwrap": null,
+  "_spec": "https://github.com/GraemeFulton/wordpress-query-posts/tarball/master",
+  "_where": "/Users/graeme/Documents/workspace/react-slingshot",
+  "bugs": {
+    "url": "https://github.com/ryelle/wordpress-query-posts/issues"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "lodash": "^4.16.6",
+    "qs": "^6.3.0",
+    "react": "^15.3.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.6.0",
+    "shallowequal": "^0.2.2",
+    "wordpress-rest-api-oauth-1": "^1.0.8"
+  },
+  "description": "A component for fetching WordPress post data from the REST API.",
+  "devDependencies": {
+    "babel-core": "^6.17.0",
+    "babel-eslint": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-lodash": "^3.2.9",
+    "babel-plugin-syntax-jsx": "^6.13.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "deep-freeze": "0.0.1",
+    "eslint": "^3.8.1",
+    "eslint-plugin-react": "^6.4.1",
+    "sinon": "^1.17.6"
+  },
+  "engines": {
+    "node": ">=0.10"
+  },
+  "files": [
+    "lib"
+  ],
+  "homepage": "https://github.com/ryelle/wordpress-query-posts#readme",
+  "keywords": [
+    "react",
+    "react-component",
+    "wordpress",
+    "wpapi"
+  ],
+  "license": "GPL-2.0+",
+  "main": "lib/index.js",
+  "name": "wordpress-query-posts",
+  "optionalDependencies": {},
+  "readme": "WordPress Query Posts\n=====================\n\nThis package contains a query component, along with redux state & selectors for posts pulled from a WordPress site. This uses the [`node-wpapi`](https://github.com/WP-API/node-wpapi) package to get your site's data via Query Components ([inspired by calypso](https://github.com/Automattic/wp-calypso/blob/master/docs/our-approach-to-data.md#query-components)). The Query Components call the API, which via actions set your site's data into the state.\n\nTo use any of these helpers, you'll need to set your Site URL in a global (`SiteSettings`), so that the API knows what site to connect to. For example:\n\n```js\nwindow.SiteSettings = {\n\tendpoint: 'url.com/path-to-wordpress',\n};\n```\n\nAs of version 1.1, the URL should _not_ include `/wp_json` – `wordpress-rest-api-oauth-1` adds that for us.\n\nQuery Posts\n===========\n\nQuery Posts is a React component used in managing the fetching of posts queries, or single posts by the post slug.\n\n## Usage\n\nUsed to request a single post, or list of posts, based on either a query object, or post slug.\n\nRender the component, passing in the `query` or a single `postSlug`. It does not accept any children, nor does it render any elements to the page. You can use it adjacent to other sibling components which make use of the fetched data made available through the global application state.\n\n```jsx\nimport React from 'react';\nimport QueryPosts from 'wordpress-query-posts';\nimport MyPostsListItem from './list-item';\n\nexport default function MyPostsList( { posts } ) {\n\treturn (\n\t\t<div>\n\t\t\t<QueryPosts query={ { search: 'Themes' } } />\n\t\t\t{ posts.map( ( post ) => {\n\t\t\t\treturn (\n\t\t\t\t\t<MyPostsListItem\n\t\t\t\t\t\tkey={ post.id }\n\t\t\t\t\t\tpost={ post } />\n\t\t\t\t);\n\t\t\t} }\n\t\t</div>\n\t);\n}\n```\n\nor for a single post:\n\n```jsx\nimport React from 'react';\nimport QueryPosts from 'wordpress-query-posts';\nimport SinglePost from './single';\n\nexport default function MyPostsList( { post } ) {\n\treturn (\n\t\t<div>\n\t\t\t<QueryPosts postSlug=\"local-development-for-wordcamp-websites\" />\n\t\t\t<SinglePost post={ post } />\n\t\t</div>\n\t);\n}\n```\n\n## Props\n\n### `query`\n\n<table>\n\t<tr><th>Type</th><td>Object</td></tr>\n\t<tr><th>Required</th><td>No</td></tr>\n\t<tr><th>Default</th><td><code>null</code></td></tr>\n</table>\n\nThe query to be used in requesting posts.\n\n### `postSlug`\n\n<table>\n\t<tr><th>Type</th><td>String</td></tr>\n\t<tr><th>Required</th><td>No</td></tr>\n\t<tr><th>Default</th><td><code>null</code></td></tr>\n</table>\n\nThe post slug of the post to request.\n\nPost Selectors\n==============\n\nYou can import these into your project by grabbing them from the `selectors` file:\n\n```jsx\nimport { getPost, isRequestingPost } from 'wordpress-query-posts/lib/selectors';\n```\n\n#### `getPost( state, globalId )`\n\n#### `getPostsForQuery( state, query )`\n\n#### `isRequestingPostsForQuery( state, query )`\n\n#### `getTotalPagesForQuery( state, query )`\n\n#### `isRequestingPost( state, postSlug )`\n\n#### `getPostIdFromSlug( state, slug )`\n\nPost State\n==========\n\nIf you need access to the reducers, action types, or action creators, you can import these from the `state` file. For example, to use this in your global redux state, mix it into your reducer tree like this:\n\n```jsx\nimport posts from 'wordpress-query-posts/lib/state';\n\nlet reducer = combineReducers( { ...otherReducers, posts } );\n```\n\nIf you need to call an action (the query component should take care of this most of the time), you can pull the action out specifically:\n\n```jsx\nimport { requestPost } from 'wordpress-query-posts/lib/state';\n```\n\n[View the file itself](src/state.js) to see what else is available.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryelle/wordpress-query-posts.git"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "lint": "eslint js --ext=js,jsx",
+    "postversion": "git push && git push --tags",
+    "preversion": "npm test",
+    "test": "mocha  --require ./mocha-setup",
+    "version": "npm run build && git add -A lib",
+    "watch": "babel src --out-dir lib --watch"
+  },
+  "version": "1.1.2"
+}
