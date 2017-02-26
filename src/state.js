@@ -167,21 +167,22 @@ export default combineReducers( {
  * @param  {String}   query  Post query
  * @return {Function}        Action thunk
  */
-export function requestPosts( query = {} ) {
+export function requestPosts( postType= 'posts', query = {} ) {
 	return ( dispatch ) => {
 		dispatch( {
 			type: POSTS_REQUEST,
+			postType,
 			query
 		} );
 
 		query._embed = true;
 
-		api.get( '/wp/v2/posts', query ).then( posts => {
+		api.get( '/wp/v2/'+ postType, query ).then( posts => {
 			dispatch( {
 				type: POSTS_RECEIVE,
 				posts
 			} );
-			requestPageCount( '/wp/v2/posts', query ).then( count => {
+			requestPageCount( '/wp/v2/' + postType, query ).then( count => {
 				dispatch( {
 					type: POSTS_REQUEST_SUCCESS,
 					query,

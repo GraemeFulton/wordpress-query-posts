@@ -66,7 +66,7 @@ export default connect(
 		const { postSlug, query , postType} = ownProps;
 		return {
 			requestingPost: isRequestingPost( state, postSlug ),
-			requestingPosts: isRequestingPostsForQuery( state, query, postType )
+			requestingPosts: isRequestingPostsForQuery( state, query )
 		};
 	},
 	( dispatch ) => {
